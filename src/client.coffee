@@ -58,7 +58,7 @@ class Client extends EventEmitter
             else
                 @authenticated = true
                 # Continue happy flow here
-                @token = headers.token
+                @token = headers.token if headers.token?
                 @socketUrl = (if useTLS then 'wss://' else 'ws://') + @host + (if @options.wssPort? then ':'+ @options.wssPort else ':443') + apiPrefix + usersRoute + '/websocket'
                 @logger.info 'Websocket URL: ' + @socketUrl
                 @self = new User data
